@@ -1,25 +1,34 @@
 package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g3d.Model;
+import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.g3d.ModelInstance;
+import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
+import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
+
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class MyGdxGame extends ApplicationAdapter {
-	private Escenario stage;
-
+	private Escenario escenario;
 	@Override
 	public void create () {
-		stage = new Escenario();
+		escenario = new Escenario();
 	}
+
 
 	@Override
 	public void render () {
-		ScreenUtils.clear(1, 0, 0, 1);
-		stage.act();
-		stage.draw();
-
+		escenario.act();
+		escenario.draw();
 	}
 	
 	@Override
 	public void dispose () {
-		stage.dispose();
+	    escenario.dispose();
+		super.dispose();
 	}
 }
