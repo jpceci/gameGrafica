@@ -3,21 +3,31 @@ import com.badlogic.gdx.Gdx;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Sound;
 
 public class TecladoController implements InputProcessor {
 
-    private final int[] teclas = {Input.Keys.UP,Input.Keys.DOWN,Input.Keys.LEFT,Input.Keys.RIGHT};
-    public static boolean[] estados = {false,false,false,false};
+    private final int[] teclas = {Input.Keys.UP,Input.Keys.DOWN,Input.Keys.LEFT,Input.Keys.RIGHT, Input.Keys.SPACE};
+    public static boolean[] estados = {false,false,false,false,false};
     private final Thread actualizar;
+    private static Sound soundtrack;
+
+
+
 
     public TecladoController(){
+        soundtrack = Gdx.audio.newSound(Gdx.files.internal(Sonidos.soundtrack));
         Gdx.input.setInputProcessor(this);
         actualizar = new Thread(new Actualizar());
         actualizar.start();
+        soundtrack.play(0.1f);
+
     }
 
     void dispose(){
+        soundtrack.stop();
        actualizar.stop();
+
     }
 
     @Override
@@ -27,8 +37,6 @@ public class TecladoController implements InputProcessor {
                    estados[i] = true;
                }
            }
-           if (keycode == Input.Keys.SPACE)
-               NaveEspacial.disparar();
             return true;
         }
 
